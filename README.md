@@ -1,8 +1,8 @@
-# MyReads Project
+# Udacity's Nanodegree MyReads Project (React)
 
-This is the Udacity's Nanodegree MyReads React Project. This is a simple app with which you can keep track of your book reading by placing your books on three different shelves shelves: "Currently Reading", "Want to Read" and "Read".
+In this simple app you can keep track of your book reading by placing your books on three different shelves shelves: "Currently Reading", "Want to Read" and "Read".
 
-The course provided some static code and styling, my job was to make this dynamic by using React and connecting to an API.
+This project is part of the Udacity's Nanodegree Course and they provided some static code and styling. My job was to make this dynamic by using React and connecting to an external API.
 
 ## Running the Project
 
