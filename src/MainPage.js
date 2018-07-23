@@ -15,16 +15,19 @@ class MainPage extends Component{
             title="Currently Reading"
             books={this.props.currentlyReading}
             defaultSelection="currentlyReading"
+            changeShelf={this.props.changeShelf}
           />
           <Shelf
             title="Want to Read"
             books={this.props.wantToRead}
             defaultSelection="wantToRead"
+            changeShelf={this.props.changeShelf}
           />
           <Shelf
             title="Read"
             books={this.props.read}
             defaultSelection="read"
+            changeShelf={this.props.changeShelf}
           />
         </div>
       </div>
