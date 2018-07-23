@@ -54,6 +54,7 @@ class BooksApp extends React.Component {
           <SearchPage
             queryApi={this.searchBooks}
             bookMatches={this.state.queryResults}
+            changeShelf={(book, shelf)=>BooksAPI.update(book, shelf).then(this.refreshStateData)}
           />)}
         />
       </div>
