@@ -17,6 +17,7 @@
 .env.production.local
 yarn.lock
 package-lock.json
+.eslintrc
 
 
 npm-debug.log*
