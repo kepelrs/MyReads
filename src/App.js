@@ -14,10 +14,10 @@ class BooksApp extends React.Component {
   }
 
   componentDidMount() {
-    this.refreshStateData();
+    this.fetchState();
   }
 
-  refreshStateData = () => {
+  fetchState = () => {
     BooksAPI.getAll().then((allBooks) => {
       this.setState({
         currentlyReading: allBooks.filter(book=>book.shelf === "currentlyReading"),
@@ -34,9 +34,28 @@ class BooksApp extends React.Component {
     } else {
       BooksAPI.search(query)
       .then(results=>this.setState({
-        queryResults: results.error ? [] : results
+        queryResults: results.error ? [] : this.categorizeQueries(results)
       }))
     }
+  }
+
+  categorizeQueries = (bookArray) => {
+    const currentlyReadingIds = this.state.currentlyReading.map(book=>book.id)
+    const wantToReadIds = this.state.wantToRead.map(book=>book.id)
+    const readIds = this.state.read.map(book=>book.id)
+
+    return bookArray.map((book) => {
+      if(currentlyReadingIds.indexOf(book.id) !== -1){
+        book.shelf='currentlyReading'
+      }else if(wantToReadIds.indexOf(book.id) !== -1){
+        book.shelf='wantToRead'
+      }else if(readIds.indexOf(book.id) !== -1){
+        book.shelf='read'
+      }else {
+        book.shelf='none'
+      }
+      return book
+    })
   }
 
   render() {
@@ -47,14 +66,14 @@ class BooksApp extends React.Component {
             currentlyReading={this.state.currentlyReading}
             wantToRead={this.state.wantToRead}
             read={this.state.read}
-            changeShelf={(book, shelf)=>BooksAPI.update(book, shelf).then(this.refreshStateData)}
+            changeShelf={(book, shelf)=>BooksAPI.update(book, shelf).then(this.fetchState)}
           />)}
         />
         <Route path="/search" render={()=> (
           <SearchPage
             queryApi={this.searchBooks}
             bookMatches={this.state.queryResults}
-            changeShelf={(book, shelf)=>BooksAPI.update(book, shelf).then(this.refreshStateData)}
+            changeShelf={(book, shelf)=>BooksAPI.update(book, shelf).then(this.fetchState)}
           />)}
         />
       </div>
