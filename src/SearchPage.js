@@ -2,12 +2,9 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 
 class SearchPage extends Component{
-  state = {query: ''}
-
   findBooks = (event) => {
     const query = event.target.value
-    this.setState({query})
-    this.props.searchApi(query)
+    this.props.queryApi(query)
   }
 
   render() {
@@ -16,12 +13,12 @@ class SearchPage extends Component{
       <div className="search-books-bar">
         <Link className="close-search" to="/">Close</Link>
         <div className="search-books-input-wrapper">
-          <input type="text" placeholder="Search by title or author" value={this.state.query} onChange={this.findBooks}/>
+          <input type="text" placeholder="Search by title or author" onChange={this.findBooks}/>
         </div>
       </div>
       <div className="search-books-results">
         <ol className="books-grid">
-          {this.props.bookMatches.map && this.props.bookMatches.map(book=>(
+          {this.props.bookMatches.map(book=>(
             <li key={book.id}>
               <div className="book">
                 <div className="book-top">

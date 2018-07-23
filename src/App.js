@@ -28,6 +28,17 @@ class BooksApp extends React.Component {
     })
   }
 
+  searchBooks = (query) => {
+    if(!query) {
+      this.setState({queryResults: []})
+    } else {
+      BooksAPI.search(query)
+      .then(results=>this.setState({
+        queryResults: results.error ? [] : results
+      }))
+    }
+  }
+
   render() {
     return (
       <div className="app">
@@ -41,7 +52,7 @@ class BooksApp extends React.Component {
         />
         <Route path="/search" render={()=> (
           <SearchPage
-            searchApi={(query)=>BooksAPI.search(query).then(results=>this.setState({queryResults: results || []}))}
+            queryApi={this.searchBooks}
             bookMatches={this.state.queryResults}
           />)}
         />
